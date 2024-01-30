@@ -8,6 +8,9 @@ import HomeScreen from "./screens/HomeScreen";
 import FriendsScreen from "./screens/FriendsScreen";
 import ChatsScreen from "./screens/ChatsScreen";
 import ChatMessagesScreen from "./screens/ChatMessagesScreen";
+import LearnPage from "./screens/LearnPage";
+import Hiragana from "./screens/Hiragana";
+import Katakana from "./screens/Katakana";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -31,6 +34,10 @@ const StackNavigator = () => {
         <Stack.Screen name="Chats" component={ChatsScreen} />
 
         <Stack.Screen name="Messages" component={ChatMessagesScreen} />
+
+        <Stack.Screen name="Learn" component={LearnPage} />
+        <Stack.Screen name="Hiragana" component={Hiragana} />
+        <Stack.Screen name="Katakana" component={Katakana} />
       </Stack.Navigator>
     </NavigationContainer>
   );

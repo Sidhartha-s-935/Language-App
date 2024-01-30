@@ -8,30 +8,75 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import User from "../components/User";
+import { SimpleLineIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+
 const HomeScreen = () => {
   const navigation = useNavigation();
   const { userId, setUserId } = useContext(UserType);
   const [users, setUsers] = useState([]);
+
+  const handleLogout = async () => {
+    try {
+      // Send a request to the backend logout endpoint
+      await axios.post("http://10.0.2.2:8000/logout");
+
+      // Clear the stored authentication token
+      await AsyncStorage.removeItem("authToken");
+
+      // Navigate the user to the login screen
+      navigation.replace("Login"); // Replace with the name of your login screen
+    } catch (error) {
+      console.log("Error during logout", error);
+    }
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: "",
       headerLeft: () => (
-        <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-          LanguageLearner
-        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 15,
+          }}
+        >
+          <SimpleLineIcons
+            onPress={handleLogout}
+            name="logout"
+            size={24}
+            color="black"
+          />
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              includeFontPadding: true,
+            }}
+          >
+            LanguageLearner
+          </Text>
+        </View>
       ),
       headerRight: () => (
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
+          <AntDesign
+            onPress={() => navigation.navigate("Learn")}
+            name="book"
+            size={30}
+            color="black"
+          />
           <Ionicons
             onPress={() => navigation.navigate("Chats")}
             name="chatbox-ellipses-outline"
-            size={24}
+            size={30}
             color="black"
           />
           <MaterialIcons
             onPress={() => navigation.navigate("Friends")}
             name="people-outline"
-            size={24}
+            size={30}
             color="black"
           />
         </View>
@@ -61,21 +106,6 @@ const HomeScreen = () => {
 
   console.log("users", users);
 
-  const handleLogout = async () => {
-    try {
-      // Send a request to the backend logout endpoint
-      await axios.post("http://10.0.2.2:8000/logout");
-
-      // Clear the stored authentication token
-      await AsyncStorage.removeItem("authToken");
-
-      // Navigate the user to the login screen
-      navigation.replace("Login"); // Replace with the name of your login screen
-    } catch (error) {
-      console.log("Error during logout", error);
-    }
-  };
-
   return (
     <View>
       <View style={{ padding: 10 }}>
@@ -83,18 +113,6 @@ const HomeScreen = () => {
           <User key={index} item={item} />
         ))}
       </View>
-      {/* Logout Button */}
-      <TouchableOpacity
-        onPress={handleLogout}
-        style={{
-          padding: 10,
-          backgroundColor: "red",
-          alignItems: "center",
-          marginTop: 20,
-        }}
-      >
-        <Text style={{ color: "white" }}>Logout</Text>
-      </TouchableOpacity>
     </View>
   );
 };
