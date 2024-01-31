@@ -11,6 +11,8 @@ import ChatMessagesScreen from "./screens/ChatMessagesScreen";
 import LearnPage from "./screens/LearnPage";
 import Hiragana from "./screens/Hiragana";
 import Katakana from "./screens/Katakana";
+import VariantsInfoPage from "./screens/Variants";
+import KanjiPage from "./screens/Kanji";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -38,6 +40,8 @@ const StackNavigator = () => {
         <Stack.Screen name="Learn" component={LearnPage} />
         <Stack.Screen name="Hiragana" component={Hiragana} />
         <Stack.Screen name="Katakana" component={Katakana} />
+        <Stack.Screen name="Variants" component={VariantsInfoPage} />
+        <Stack.Screen name="Kanji" component={KanjiPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
