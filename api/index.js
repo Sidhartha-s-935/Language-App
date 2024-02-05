@@ -39,7 +39,8 @@ const Message = require("./models/message");
 //endpoint for registration of the user
 
 app.post("/register", (req, res) => {
-  const { name, email, password, image } = req.body;
+  eq.body;
+  const { name, email, password, image } = r;
 
   // create a new User object
   const newUser = new User({ name, email, password, image });
